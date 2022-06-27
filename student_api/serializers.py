@@ -20,13 +20,6 @@ from django.utils.timezone import now
 #         return instance
 
 
-class PathSerializer(serializers.ModelSerializer):
-    students = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
-    class Meta:
-        model = Path
-        fields = "__all__"
-
-
 class StudentSerializer(serializers.ModelSerializer):
     days_since_joined = serializers.SerializerMethodField()
 
@@ -46,3 +39,12 @@ class StudentSerializer(serializers.ModelSerializer):
         return (now() - obj.register_date).days
 
 
+class PathSerializer(serializers.ModelSerializer):
+
+    # students = serializers.StringRelatedField(many=True)
+ # students = StudentSerializer(many=True)
+    students = serializers.PrimaryKeyRelatedField(read_only=True, many=True)
+
+    class Meta:
+        model = Path
+        fields = "__all__"
